@@ -13,7 +13,7 @@ const readPosts = () => {
     savedPosts.map(post => {
       post.user = new User(post.user);
     })
-    console.log(savedPosts)
+   // console.log(savedPosts)
   }
   return savedPosts;
 };

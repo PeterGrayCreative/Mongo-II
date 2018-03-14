@@ -16,25 +16,27 @@ server.use(bodyParser.json());
 //   res.status(200).json({success:'success'});
 // })
 // TODO: write your route handlers here
-server.get('/', (req, res) => {
+server.get('/posts', (req, res) => {
   Post.find({})
     .then((posts) => {
-      console.log(posts)
-      res.status(200).json(posts)
+      //console.log(posts)
+      
+      return res.status(200).json(posts)
     })
     .catch((err) => {
       res.status(400).json({ err: err});
       console.log(err)
-    });
+    
+    }); 
 });
 
-mongoose
+/*mongoose
   .connect('mongodb://localhost/so-posts')
   .then(res => {
     Post.create(readPosts())
       .then((populatePosts) => {
-        console.log('population succedded');
-        mongoose.disconnect();
+        console.log('population succeeded');
+        //mongoose.disconnect();
       })
       .catch((error) => {
         console.error('population failed');
@@ -42,7 +44,7 @@ mongoose
   })
   .catch((error) => {
     console.error(error);
-  });
+  }); */
 
 
 server.listen(3000, () => {
