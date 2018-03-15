@@ -14,6 +14,7 @@ server.use(bodyParser.json());
 // TODO: write your route handlers here
 server.get('/posts', (req, res) => {
   Post.find({})
+    // .populate('user')
     .then((posts) => {
       return res.status(200).json(posts);
     })
@@ -29,6 +30,7 @@ server.get('/accepted-answer/:soID', (req, res) => {
       .then((answerID) => {
         if (answerID) {
           Post.findOne({ soID: answerID })
+            // .populate('user')
             .then((answerPost) => {
               if (answerPost) {
                 res.status(200).json(answerPost);
@@ -51,6 +53,7 @@ server.get('/top-answer/:soID', (req, res) => {
   if (req.params.soID) {
     Post.find({ parentID: req.params.soID })
       .sort({ score: -1 }).limit(1)
+      // .populate('user')
       .then((post) => {
         if (post.length) {
         res.status(200).json(post);
