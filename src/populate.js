@@ -1,4 +1,5 @@
 const fs = require('fs');
+const mongoose = require('mongoose');
 
 let savedPosts = null;
 
@@ -34,8 +35,18 @@ const populatePosts = (posts) => {
     err: 'error saving posts';
   });
 };
-
-  module.exports = {
-    readPosts,
-    populatePosts
-  }
+mongoose 
+  .connect('mongodb://localhost/so-posts') 
+  .then(() => { 
+    Post.create(readPosts()) 
+      .then(() => { 
+        console.log('population succedded'); 
+        mongoose.disconnect(); 
+      }) 
+      .catch(error => { 
+        console.error('population failed'); 
+      }); 
+  }) 
+  .catch(error => { 
+    console.error('database connection failed'); 
+  }); 
